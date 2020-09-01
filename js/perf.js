@@ -19,8 +19,8 @@
     };
 
     this.show = function () {
-      var left = orbium.xpos;
-      var top = orbium.ypos + orbium.height - orbium.Marble.size;
+      var left = 0;
+      var top = orbium.height - orbium.Marble.size;
       var width = Math.round(orbium.Marble.size * 3.0);
       var height = orbium.Marble.size;
       var fontSize = Math.round(orbium.Tile.size / textFactor);

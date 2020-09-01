@@ -31,7 +31,7 @@
       orbium.has_touch_screen = true;
     }
 
-    var ratio = window.devicePixelRatio || 1;
+    var ratio = 1;
 
     // Determine the width and height we have avalable for disposal
     var avail_width = 0;
@@ -44,8 +44,8 @@
         avail_width = parseInt(w);
         avail_height = parseInt(h);
       } else {
-        avail_width = window.innerWidth;
-        avail_height = window.innerHeight;
+        avail_width = window.innerWidth-50;
+        avail_height = window.innerHeight-50;
       }
     } else { // Device with touch screen
       // Width and height is dependent on rotation. Use the largest value as width.
@@ -119,8 +119,8 @@
 
       orbium.ypos = Math.round((avail_height*0.009)); // Hack
     } else {
-      orbium.xpos = Math.round(avail_width/2-orbium.width/2);
-      orbium.ypos = Math.round(avail_height/2-orbium.height/2);
+      orbium.xpos = 0; //Math.max(0, Math.round(avail_width/2-orbium.width/2));
+      orbium.ypos = 0; //Math.max(0, Math.round(avail_height/2-orbium.height/2));
     }
 
     orbium.pane = document.getElementById("pane");
@@ -138,20 +138,21 @@
     orbium.ctx = orbium.canv.getContext("2d");
 
     // Calculate scale and set viewport, will fill screen precisely
-    var scale = 1.0;
-    if (navigator.userAgent.indexOf("iPhone") !== -1) {
-      scale = (1 / ratio) * (avail_height / orbium.height);
-    } else if (navigator.userAgent.indexOf("iPad") !== -1) {
-      scale = (1 / ratio) * (avail_width / orbium.width);
-    }
-
-    var vp_value = "width=device-width, ";
-    vp_value += "initial-scale=" + scale + ", ";
-    vp_value += "minimum-scale=" + scale + ", ";
-    vp_value += "maximum-scale=" + scale;
-
-    document.getElementById("vp").attributes.content.value = vp_value;
-
+	var scale = Math.min(1/ratio*avail_height/orbium.height, 1/ratio*avail_width/orbium.width);
+	orbium.scale = scale;
+	console.log(scale);
+	document.body.style.zoom = scale;
+	
+	orbium.content = document.getElementById("content");
+	orbium.content.style.width = "" + orbium.width + "px";
+    orbium.content.style.height = "" + orbium.height + "px";
+	/*orbium.content.style.transform= 'scale(' + scale + ')';
+	orbium.content.style.top = -0.5*(1-scale)*orbium.height+"px";
+	orbium.content.style.left = -0.5*(1-scale)*orbium.width+"px";*/
+	orbium.xpos = Math.round(avail_width/scale/2-orbium.width/2);
+	orbium.ypos = Math.round(avail_height/scale/2-orbium.height/2);
+	console.log("Offsets: %s, %s / %s, %s", orbium.xpos, orbium.ypos, orbium.content.offsetLeft, orbium.content.offsetTop);
+	
     orbium.loader = new orbium.Loader();
     orbium.player = new orbium.Player();
     orbium.storage = new orbium.Storage();

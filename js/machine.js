@@ -258,28 +258,26 @@
       var xpos = 0;
 
       if (e.touches && e.touches.length) {
-        xpos = e.touches[0].clientX - orbium.xpos;
+        xpos = e.touches[0].clientX;
       } else if (e.clientX) {
-        xpos = e.clientX - orbium.xpos;
+        xpos = e.clientX;
       } else if (e.pageX) {
-        xpos = e.pageX - orbium.xpos;
+        xpos = e.pageX;
       }
-
-      return xpos;
+	  return xpos/orbium.scale - orbium.xpos;
     };
 
     this.findYPos = function (e) {
       var ypos = 0;
 
       if (e.touches && e.touches.length) {
-        ypos = e.touches[0].clientY - orbium.ypos;
+        ypos = e.touches[0].clientY;
       } else if (e.clientY) {
-        ypos = e.clientY - orbium.ypos;
+        ypos = e.clientY;
       } else if (e.pageY) {
-        ypos = e.pageY - orbium.ypos;
+        ypos = e.pageY;
       }
-
-      return ypos;
+	  return ypos/orbium.scale - orbium.ypos;
     };
 
     this.checkMouse = function (xtap, ytap) {
@@ -303,7 +301,7 @@
     };
 
     this.checkTap = function (xtap, ytap) {
-      var idx = Math.floor(xtap / orbium.Tile.size);
+	  var idx = Math.floor(xtap / orbium.Tile.size);
       var idy = Math.floor((ytap - orbium.Bar.height) / orbium.Tile.size);
       var count = idy * orbium.Machine.horizTiles + idx;
 

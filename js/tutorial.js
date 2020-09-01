@@ -111,8 +111,8 @@
     this.show = function () {
       showing = true;
 
-      var left = orbium.xpos + entries[current][2];
-      var top = orbium.ypos + entries[current][3];
+      var left = entries[current][2];
+      var top = entries[current][3];
       var width = entries[current][4];
       var height = entries[current][5];
       var fontSize = Math.round(orbium.Tile.size / textFactor);

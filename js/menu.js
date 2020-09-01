@@ -139,8 +139,8 @@
       contact = document.getElementById("contact");
       gfx = document.getElementById("gfx");
 
-      var left = orbium.xpos + orbium.Marble.size;
-      var top = orbium.ypos + orbium.Marble.size;
+      var left = orbium.Marble.size;
+      var top = orbium.Marble.size;
       var width = orbium.width - orbium.Marble.size * 2;
       var height = orbium.height - orbium.Marble.size * 2;
       var textShadow = Math.round(orbium.Tile.size / shadowFactor);
@@ -386,8 +386,8 @@
 
     this.showLgo = function () {
       menu.style.visibility = "visible";
-      menu.style.left = "" + orbium.xpos + "px";
-      menu.style.top = "" + orbium.ypos + "px";
+      menu.style.left = "0px";
+      menu.style.top = "0px";
       menu.style.width = "" + orbium.width + "px";
       menu.style.height = "" + orbium.height + "px";
       menu.style.height = "" + orbium.height + "px";
